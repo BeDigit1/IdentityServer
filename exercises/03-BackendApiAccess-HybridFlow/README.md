@@ -82,19 +82,6 @@ It is also possible to configure IdentityServer4 to always send the user claims 
 
 ### Step 2
 
-Now we need to use our access token in our call to the api backend. In our MVC web project there is an `MvcHttpService` that handles all calls to the backend. It is prepared with an `IHttpContextAccessor` service, so that we can access our token from the HttpContext. Modify the `PostAsync` method:
+Now we need to use our access token in our call to the api backend. 
 
-```C#
-var accessToken = await _httpContextAccessor.HttpContext.GetTokenAsync("access_token");
-
-var requestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri);
-
-requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
-requestMessage.Content = new StringContent(content, Encoding.UTF8, "application/json");
-
-var response = await _httpClient.SendAsync(requestMessage);
-
-return response;
-```
-
-Here we fetch the access_token from our `HttpContext` and add it to the Authorization header in the request to our api.
+check this sample : https://github.com/IdentityServer/IdentityServer4.Samples/blob/master/Clients/src/MvcHybrid/Controllers/HomeController.cs
