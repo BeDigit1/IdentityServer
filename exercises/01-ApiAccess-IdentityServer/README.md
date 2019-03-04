@@ -176,7 +176,11 @@ dotnet add package IdentityServer4.AccessTokenValidation
 Configure the api to accept tokens from our identity server. Add the following code in ConfigureServices in Startup.cs: 
 
 ```C#
-...
+     services
+         .AddMvcCore()
+         .AddJsonFormatters()
+         .AddAuthorization();
+         
 services.AddAuthentication(defaultScheme: "Bearer")
         .AddIdentityServerAuthentication(authenticationScheme: "Bearer", configureOptions: options =>
         {
